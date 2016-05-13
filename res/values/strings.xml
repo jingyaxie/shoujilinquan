@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">手机临泉</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="strPoint">小圆点</string>
+    <string name="strWelLogo">欢迎Logo</string>
+    <string name="strWelcomeToMain">欢迎来到主页</string>
+<string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+</resources>
