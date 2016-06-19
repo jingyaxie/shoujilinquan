@@ -2,6 +2,7 @@ package com.ahxdnet.widget;
 
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
 import com.ahxdnet.linquanapp.wxapi.Constants;
+import com.alipay.sdk.pay.demo.AliPay;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -18,7 +20,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 public class JavaScriptObject {
 	Context mContxt;
 	private IWXAPI api;
-	public  static String prepayId = "";
+	public static String prepayId = "";
 
 	public JavaScriptObject(Context mContxt) {
 		this.mContxt = mContxt;
@@ -30,7 +32,8 @@ public class JavaScriptObject {
 	public void startCall(String phone) {
 		if (!TextUtils.isEmpty(phone)) {
 			try {
-				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+						+ phone));
 				mContxt.startActivity(intent);
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -47,12 +50,12 @@ public class JavaScriptObject {
 						.parse("mqqwpa://im/chat?chat_type=wpa&uin=" + qq)));
 			} catch (Exception e) {
 				// TODO: handle exception
-				Toast.makeText(mContxt, "无法启动QQ,请确认是否安装QQ并已登录", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContxt, "无法启动QQ,请确认是否安装QQ并已登录",
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
-	
-	
+
 	@JavascriptInterface
 	public void lanchNativeAppByUri(String uri) {
 		if (!TextUtils.isEmpty(uri)) {
@@ -68,8 +71,8 @@ public class JavaScriptObject {
 
 	@JavascriptInterface
 	public void startWeixinPay(String obj) {
-//		Toast.makeText(mContxt, "调用微信支付="+obj, Toast.LENGTH_SHORT).show();
-		Log.e("jingya", "obj="+obj);
+		// Toast.makeText(mContxt, "调用微信支付="+obj, Toast.LENGTH_SHORT).show();
+		Log.e("jingya", "obj=" + obj);
 		if (!TextUtils.isEmpty(obj)) {
 			try {
 				JSONObject json = new JSONObject(obj);
@@ -85,18 +88,26 @@ public class JavaScriptObject {
 					req.packageValue = json.getString("package");
 					req.sign = json.getString("sign");
 					req.extData = "app data"; // optional
-//					Toast.makeText(mContxt, "正常调起支付", Toast.LENGTH_SHORT).show();
+					// Toast.makeText(mContxt, "正常调起支付",
+					// Toast.LENGTH_SHORT).show();
 					// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
 					api.sendReq(req);
 				} else {
 					Log.d("PAY_GET", "返回错误" + json.getString("retmsg"));
-					Toast.makeText(mContxt, "返回错误" + json.getString("retmsg"), Toast.LENGTH_SHORT)
-							.show();
+					Toast.makeText(mContxt, "返回错误" + json.getString("retmsg"),
+							Toast.LENGTH_SHORT).show();
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
-				Toast.makeText(mContxt, "无法启动微信支付,请确认是否安装微信并已登录", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContxt, "无法启动微信支付,请确认是否安装微信并已登录",
+						Toast.LENGTH_SHORT).show();
 			}
 		}
+	}
+
+	@JavascriptInterface
+	public void startAliPay(String obj) {
+		AliPay pay = new AliPay((Activity) mContxt);
+		pay.pay(obj);
 	}
 }

@@ -72,16 +72,21 @@ public final class R {
         public static final int kf=0x7f02000f;
         public static final int kf_1=0x7f020010;
         public static final int lanch_bg=0x7f020011;
-        public static final int ren=0x7f020012;
-        public static final int ren_1=0x7f020013;
-        public static final int sy=0x7f020014;
-        public static final int sy_1=0x7f020015;
-        public static final int welcome_logo=0x7f020016;
-        public static final int welcome_logo_img=0x7f020017;
+        public static final int msp_demo_title=0x7f020012;
+        public static final int msp_demo_title_bg=0x7f020013;
+        public static final int msp_icon=0x7f020014;
+        public static final int ren=0x7f020015;
+        public static final int ren_1=0x7f020016;
+        public static final int sy=0x7f020017;
+        public static final int sy_1=0x7f020018;
+        public static final int welcome_logo=0x7f020019;
+        public static final int welcome_logo_img=0x7f02001a;
     }
     public static final class id {
         public static final int body=0x7f08000d;
         public static final int custom_icon=0x7f08000e;
+        public static final int fragment=0x7f080015;
+        public static final int h5pay=0x7f080014;
         public static final int home_bottom_tab_body=0x7f080001;
         public static final int home_bottom_tab_index_1=0x7f080002;
         public static final int home_bottom_tab_index_2=0x7f080003;
@@ -93,10 +98,13 @@ public final class R {
         public static final int home_fragment_body_3=0x7f080009;
         public static final int home_fragment_body_4=0x7f08000a;
         public static final int home_fragment_body_5=0x7f08000b;
-        public static final int no_data_layout=0x7f080012;
+        public static final int no_data_layout=0x7f080017;
+        public static final int pay=0x7f080013;
+        public static final int product_price=0x7f080012;
+        public static final int product_subject=0x7f080011;
         public static final int reload_text=0x7f080010;
-        public static final int start_pay=0x7f080011;
-        public static final int swipe_container=0x7f080013;
+        public static final int start_pay=0x7f080016;
+        public static final int swipe_container=0x7f080018;
         public static final int viewpager=0x7f080000;
         public static final int webview=0x7f08000f;
         public static final int welcome_logo=0x7f08000c;
@@ -108,8 +116,10 @@ public final class R {
         public static final int common_activity=0x7f030003;
         public static final int custom_fragment=0x7f030004;
         public static final int no_data_layout=0x7f030005;
-        public static final int pay_test=0x7f030006;
-        public static final int webviewfragment=0x7f030007;
+        public static final int pay_external=0x7f030006;
+        public static final int pay_main=0x7f030007;
+        public static final int pay_test=0x7f030008;
+        public static final int webviewfragment=0x7f030009;
     }
     public static final class string {
         public static final int app_name=0x7f060000;

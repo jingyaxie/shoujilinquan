@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ahxdnet.linquanapp.R;
+import com.ahxdnet.util.listener.PayBackListenerManager;
 import com.ahxdnet.widget.JavaScriptObject;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -54,7 +55,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 //			} else {
 //				Toast.makeText(getApplicationContext(), "支付失败-"+resp.errCode, Toast.LENGTH_SHORT).show();
 //			}
-			PaymentBackListenerContainer.getIntance().notifaAllListener(JavaScriptObject.prepayId, resp.errCode);
+			PayBackListenerManager.getInstance().noticeListener("weixin", JavaScriptObject.prepayId, resp.errCode);
+//			PaymentBackListenerContainer.getIntance().notifaAllListener(JavaScriptObject.prepayId, resp.errCode);
 			this.finish();
 		}
 	}

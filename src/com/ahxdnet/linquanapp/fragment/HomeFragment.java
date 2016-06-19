@@ -25,14 +25,16 @@ import android.widget.Toast;
 
 import com.ahxdnet.linquanapp.R;
 import com.ahxdnet.linquanapp.wxapi.PaymentBackListenerContainer;
-import com.ahxdnet.linquanapp.wxapi.PaymentBackListenerContainer.PaymentBackListener;
 import com.ahxdnet.util.FileUtils;
 import com.ahxdnet.util.NetUtil;
+import com.ahxdnet.util.listener.PayBackListenerManager;
+import com.ahxdnet.util.listener.PayBackListenerManager.PayBackListener;
 import com.ahxdnet.widget.LoadFailView;
 import com.ahxdnet.widget.LoadFailView.ReloadListener;
 import com.ahxdnet.widget.ProgressWebView;
 
-public class HomeFragment extends Fragment implements ReloadListener, PaymentBackListener {
+public class HomeFragment extends Fragment implements ReloadListener,
+		PayBackListener {
 	public ProgressWebView mWebView;
 	View v;
 	String url;
@@ -46,7 +48,8 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 	private final static int FILECHOOSER_RESULTCODE = 1;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		v = inflater.inflate(R.layout.webviewfragment, null);
 		mLoadFailView = (LoadFailView) v.findViewById(R.id.no_data_layout);
@@ -70,8 +73,8 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 		mWebView = (ProgressWebView) v.findViewById(R.id.webview);
 		WebSettings webSettings = mWebView.getSettings();
 		webSettings.setAllowFileAccess(true);// 设置允许访问文件数据
-		webSettings.setUserAgentString(mWebView.getSettings().getUserAgentString() + "_"
-				+ "lqshandroid");
+		webSettings.setUserAgentString(mWebView.getSettings()
+				.getUserAgentString() + "_" + "lqshandroid");
 		webSettings.setJavaScriptEnabled(true);
 		mWebView.setWebChromeClient(new XHSWebChromeClient());
 		Bundle args = getArguments();
@@ -81,29 +84,31 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 		mWebView.loadUrl(url);
 		mLoadFailView.setOnReloadListener(this);
 		swipeLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_container);
-		swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-			@Override
-			public void onRefresh() {
-				// 重新刷新页面
-				mWebView.loadUrl(current_url);
-			}
-		});
-		swipeLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
-				R.color.holo_orange_light, R.color.holo_red_light);
+		swipeLayout
+				.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+					@Override
+					public void onRefresh() {
+						// 重新刷新页面
+						mWebView.loadUrl(current_url);
+					}
+				});
+		swipeLayout.setColorSchemeResources(R.color.holo_blue_bright,
+				R.color.holo_green_light, R.color.holo_orange_light,
+				R.color.holo_red_light);
 	}
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onViewCreated(view, savedInstanceState);
-		PaymentBackListenerContainer.getIntance().addListener(this);
+		PayBackListenerManager.getInstance().addListener(this);
 	}
 
 	@Override
 	public void onDestroyView() {
 		// TODO Auto-generated method stub
 		super.onDestroyView();
-		PaymentBackListenerContainer.getIntance().removeListener(this);
+		PayBackListenerManager.getInstance().removeListener(this);
 	}
 
 	public void loadData(boolean isLoad) {
@@ -122,31 +127,35 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 				// Toast.LENGTH_SHORT).show();
 				if (url.startsWith("weixin://")) {
 					try {
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri
+								.parse(url)));
 					} catch (Exception e) {
 						// TODO: handle exception
-						Toast.makeText(getActivity(), "无法启动微信,请确认是否安装微信并已登录", Toast.LENGTH_SHORT)
-								.show();
+						Toast.makeText(getActivity(), "无法启动微信,请确认是否安装微信并已登录",
+								Toast.LENGTH_SHORT).show();
 					}
 					return true;
 				}
 				if (url.startsWith("mqqwpa://")) {
 					try {
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri
+								.parse(url)));
 					} catch (Exception e) {
 						// TODO: handle exception
-						Toast.makeText(getActivity(), "无法启动QQ,请确认是否安装QQ并已登录", Toast.LENGTH_SHORT)
-								.show();
+						Toast.makeText(getActivity(), "无法启动QQ,请确认是否安装QQ并已登录",
+								Toast.LENGTH_SHORT).show();
 					}
 					return true;
 				}
 				if (url.trim().startsWith("tel:")) {
 					try {
-						Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
+						Intent intent = new Intent(Intent.ACTION_CALL, Uri
+								.parse(url));
 						startActivity(intent);
 					} catch (Exception e) {
 						// TODO: handle exception
-						Toast.makeText(getActivity(), "无法启动电话", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(), "无法启动电话",
+								Toast.LENGTH_SHORT).show();
 					}
 					return true;
 				}
@@ -180,7 +189,8 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 			public void onPageFinished(WebView view, String url) {
 				// TODO Auto-generated method stub
 				super.onPageFinished(view, url);
-				if (!NetUtil.isNetworkAvailable(getActivity()) || url.contains("data:text/html")) {
+				if (!NetUtil.isNetworkAvailable(getActivity())
+						|| url.contains("data:text/html")) {
 					mLoadFailView.setVisibility(View.VISIBLE);
 				} else {
 					mLoadFailView.setVisibility(View.GONE);
@@ -192,8 +202,8 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 			}
 
 			@Override
-			public void onReceivedError(WebView view, int errorCode, String description,
-					String failingUrl) {
+			public void onReceivedError(WebView view, int errorCode,
+					String description, String failingUrl) {
 				// TODO Auto-generated method stub
 				super.onReceivedError(view, errorCode, description, failingUrl);
 				mLoadFailView.setVisibility(View.VISIBLE);
@@ -220,8 +230,8 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 				if (null == mUploadMessage)
 					return;
 			}
-			Uri result = intent == null || resultCode != Activity.RESULT_OK ? null : intent
-					.getData();
+			Uri result = intent == null || resultCode != Activity.RESULT_OK ? null
+					: intent.getData();
 			if (result == null) {
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 					mUploadMessage5up.onReceiveValue(null);
@@ -245,7 +255,8 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 				return;
 			}
 			Uri uri = Uri.fromFile(new File(path));
-			Log.i("UPFILE", "onActivityResult after parser uri:" + uri.toString());
+			Log.i("UPFILE",
+					"onActivityResult after parser uri:" + uri.toString());
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 				if (mUploadMessage5up != null)
 					mUploadMessage5up.onReceiveValue(new Uri[] { uri });
@@ -268,47 +279,56 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 			Intent i = new Intent(Intent.ACTION_GET_CONTENT);
 			i.addCategory(Intent.CATEGORY_OPENABLE);
 			i.setType("image/*");
-			startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
+			startActivityForResult(Intent.createChooser(i, "File Chooser"),
+					FILECHOOSER_RESULTCODE);
 		}
 
 		// For Android 3.0+
 		public void openFileChooser(ValueCallback uploadMsg, String acceptType) {
-			Log.i("UPFILE", "in openFile Uri Callback has accept Type" + acceptType);
+			Log.i("UPFILE", "in openFile Uri Callback has accept Type"
+					+ acceptType);
 			if (mUploadMessage != null) {
 				mUploadMessage.onReceiveValue(null);
 			}
 			mUploadMessage = uploadMsg;
 			Intent i = new Intent(Intent.ACTION_GET_CONTENT);
 			i.addCategory(Intent.CATEGORY_OPENABLE);
-			String type = TextUtils.isEmpty(acceptType) ? "image/*" : acceptType;
+			String type = TextUtils.isEmpty(acceptType) ? "image/*"
+					: acceptType;
 			i.setType(type);
-			startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
+			startActivityForResult(Intent.createChooser(i, "File Chooser"),
+					FILECHOOSER_RESULTCODE);
 		}
 
 		// For Android 4.1
-		public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
-			Log.i("UPFILE", "in openFile Uri Callback has accept Type" + acceptType + "has capture"
-					+ capture);
+		public void openFileChooser(ValueCallback<Uri> uploadMsg,
+				String acceptType, String capture) {
+			Log.i("UPFILE", "in openFile Uri Callback has accept Type"
+					+ acceptType + "has capture" + capture);
 			if (mUploadMessage != null) {
 				mUploadMessage.onReceiveValue(null);
 			}
 			mUploadMessage = uploadMsg;
 			Intent i = new Intent(Intent.ACTION_GET_CONTENT);
 			i.addCategory(Intent.CATEGORY_OPENABLE);
-			String type = TextUtils.isEmpty(acceptType) ? "image/*" : acceptType;
+			String type = TextUtils.isEmpty(acceptType) ? "image/*"
+					: acceptType;
 			i.setType(type);
-			startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
+			startActivityForResult(Intent.createChooser(i, "File Chooser"),
+					FILECHOOSER_RESULTCODE);
 		}
 
 		// Android 5.0+
 		@Override
 		@SuppressLint("NewApi")
-		public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
+		public boolean onShowFileChooser(WebView webView,
+				ValueCallback<Uri[]> filePathCallback,
 				FileChooserParams fileChooserParams) {
 			if (mUploadMessage5up != null) {
 				mUploadMessage5up.onReceiveValue(null);
 			}
-			Log.i("UPFILE", "file chooser params：" + fileChooserParams.toString());
+			Log.i("UPFILE",
+					"file chooser params：" + fileChooserParams.toString());
 			mUploadMessage5up = filePathCallback;
 			Intent i = new Intent(Intent.ACTION_GET_CONTENT);
 			i.addCategory(Intent.CATEGORY_OPENABLE);
@@ -320,7 +340,8 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 			// } else {
 			//
 			// }
-			startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
+			startActivityForResult(Intent.createChooser(i, "File Chooser"),
+					FILECHOOSER_RESULTCODE);
 			return true;
 		}
 
@@ -343,12 +364,16 @@ public class HomeFragment extends Fragment implements ReloadListener, PaymentBac
 	}
 
 	@Override
-	public void onPayBack(String prepayId, int state) {
+	public void onPayBack(String type, String prepayId, int state) {
 		// TODO Auto-generated method stub
-		String js = "javascript:payback('" + prepayId + "|" + state + "')";
-//		Toast.makeText(getActivity(), "js="+js, Toast.LENGTH_SHORT).show();
-		mWebView.loadUrl(js);
-		
-//		mWebView.loadUrl("javascript:paybackceshi()");
+		String js = null;
+		if ("weixin".endsWith(type)) {
+			js = "javascript:payback('" + prepayId + "|" + state + "')";
+		}
+		if ("alipay".endsWith(type)) {
+			js = "javascript:payback('" + prepayId + "|" + state + "')";
+		}
+		if (!TextUtils.isEmpty(js))
+			mWebView.loadUrl(js);
 	}
 }
