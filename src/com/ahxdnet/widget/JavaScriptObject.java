@@ -72,7 +72,7 @@ public class JavaScriptObject {
 	@JavascriptInterface
 	public void startWeixinPay(String obj) {
 		// Toast.makeText(mContxt, "调用微信支付="+obj, Toast.LENGTH_SHORT).show();
-		Log.e("jingya", "obj=" + obj);
+		Log.e("jingya", "startWeixinPay obj=" + obj);
 		if (!TextUtils.isEmpty(obj)) {
 			try {
 				JSONObject json = new JSONObject(obj);
@@ -107,6 +107,7 @@ public class JavaScriptObject {
 
 	@JavascriptInterface
 	public void startAliPay(String obj) {
+		Log.e("jingya", "startAliPay obj=" + obj);
 		AliPay pay = new AliPay((Activity) mContxt);
 		pay.pay(obj);
 	}

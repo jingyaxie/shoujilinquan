@@ -51,13 +51,13 @@ public class GuideActivity extends Activity implements OnPageChangeListener {
 				R.drawable.android_guide_step_2, image_2, 720, 1280);
 		MyBitmapUtil.LoaderBitmapFromResourceThread(getResources(),
 				R.drawable.android_guide_step_3, image_3, 720, 1280);
-		MyBitmapUtil.LoaderBitmapFromResourceThread(getResources(),
-				R.drawable.android_guide_step_4, image_4, 720, 1280);
+//		MyBitmapUtil.LoaderBitmapFromResourceThread(getResources(),
+//				R.drawable.android_guide_step_4, image_4, 720, 1280);
 		views = new ArrayList<View>();
 		views.add(image_1);
 		views.add(image_2);
 		views.add(image_3);
-		views.add(image_4);
+//		views.add(image_4);
 		viewPager.setOnPageChangeListener(this);
 		viewPager.setAdapter(new ViewPagerAdapter(views));
 	}
@@ -72,7 +72,7 @@ public class GuideActivity extends Activity implements OnPageChangeListener {
 
 	@Override
 	public void onPageSelected(int arg0) {
-		if (arg0 == 3) {
+		if (arg0 == 2) {
 			new Handler().postDelayed(new Runnable() {
 				@Override
 				public void run() {

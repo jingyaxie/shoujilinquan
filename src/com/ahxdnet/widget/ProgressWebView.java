@@ -20,6 +20,7 @@ public class ProgressWebView extends WebView {
 		// setWebChromeClient(new WebChromeClient());
 		setPageCacheCapacity(getSettings());
 		addJavascriptInterface(new JavaScriptObject(getContext()), "linquanapp");
+		
 	}
 
 	// public class WebChromeClient extends android.webkit.WebChromeClient {

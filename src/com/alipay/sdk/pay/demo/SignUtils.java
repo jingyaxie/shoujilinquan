@@ -4,6 +4,8 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 
+import android.util.Log;
+
 public class SignUtils {
 
 	private static final String ALGORITHM = "RSA";
@@ -16,6 +18,7 @@ public class SignUtils {
 		try {
 			PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(
 					Base64.decode(privateKey));
+			Log.d("jingya", "privateKey="+privateKey);
 			KeyFactory keyf = KeyFactory.getInstance(ALGORITHM);
 			PrivateKey priKey = keyf.generatePrivate(priPKCS8);
 

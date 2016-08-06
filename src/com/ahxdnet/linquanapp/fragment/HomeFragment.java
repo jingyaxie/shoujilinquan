@@ -363,17 +363,37 @@ public class HomeFragment extends Fragment implements ReloadListener,
 		public void payBack(int code);
 	}
 
+//	@Override
+//	public void onPayBack(String type, String prepayId, int state) {
+//		// TODO Auto-generated method stub
+//		String js = null;
+//		if ("weixin".endsWith(type)) {
+//			js = "javascript:payback('" + prepayId + "|" + state + "')";
+//		}
+//		if ("alipay".endsWith(type)) {
+//			js = "javascript:payback('" + prepayId + "|" + state + "')";
+//		}
+//		if (!TextUtils.isEmpty(js))
+//			mWebView.loadUrl(js);
+//	}
+
 	@Override
-	public void onPayBack(String type, String prepayId, int state) {
+	public void onPayBack(final String type, final String prepayId, final String state) {
 		// TODO Auto-generated method stub
-		String js = null;
-		if ("weixin".endsWith(type)) {
-			js = "javascript:payback('" + prepayId + "|" + state + "')";
-		}
-		if ("alipay".endsWith(type)) {
-			js = "javascript:payback('" + prepayId + "|" + state + "')";
-		}
-		if (!TextUtils.isEmpty(js))
-			mWebView.loadUrl(js);
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					String js = null;
+					if ("weixin".endsWith(type)) {
+						js = "javascript:payback('"+type+"|" + prepayId + "|" + state + "')";
+					}
+					if ("alipay".endsWith(type)) {
+						js = "javascript:payback('" +type+"|"+ prepayId + "|" + state + "')";
+					
+					mWebView.loadUrl(js);
+				}
+				}
+			});
 	}
 }

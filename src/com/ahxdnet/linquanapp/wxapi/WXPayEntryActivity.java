@@ -48,14 +48,14 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 			// builder.setTitle("提示");
 			// builder.setMessage(getString(R.string.pay_result_callback_msg,
 			// String.valueOf(resp.errCode)));
-			// builder.show();
+			// builder.show(); 
 			// this.finish();
 //			if (resp.errCode == 0) {
 //				Toast.makeText(getApplicationContext(), "支付成功", Toast.LENGTH_SHORT).show();
 //			} else {
 //				Toast.makeText(getApplicationContext(), "支付失败-"+resp.errCode, Toast.LENGTH_SHORT).show();
 //			}
-			PayBackListenerManager.getInstance().noticeListener("weixin", JavaScriptObject.prepayId, resp.errCode);
+			PayBackListenerManager.getInstance().noticeListener("weixin", JavaScriptObject.prepayId, resp.errCode+"");
 //			PaymentBackListenerContainer.getIntance().notifaAllListener(JavaScriptObject.prepayId, resp.errCode);
 			this.finish();
 		}

@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.ahxdnet.linquanapp.R;
+import com.ahxdnet.linquanapp.fragment.HomeFragment.XHSWebChromeClient;
 import com.ahxdnet.widget.ProgressWebView;
 import com.ahxdnet.widget.LoadFailView.ReloadListener;
 
@@ -28,6 +29,7 @@ public class CustomFragment extends Fragment implements ReloadListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		v = inflater.inflate(R.layout.custom_fragment, null);
+		
 		return v;
 	}
 
@@ -46,7 +48,11 @@ public class CustomFragment extends Fragment implements ReloadListener {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		mWebView = (ProgressWebView) v.findViewById(R.id.webview);
-//		mWebView.getSettings().setUserAgentString("lqshapp");
+		WebSettings webSettings = mWebView.getSettings();
+		webSettings.setAllowFileAccess(true);// 设置允许访问文件数据
+		webSettings.setUserAgentString(mWebView.getSettings()
+				.getUserAgentString() + "_" + "lqshandroid");
+		webSettings.setJavaScriptEnabled(true);
 		Bundle args = getArguments();
 		url = args != null ? args.getString("url") : "";
 		index = args != null ? args.getInt("index") : 0;
@@ -55,8 +61,8 @@ public class CustomFragment extends Fragment implements ReloadListener {
 	}
 
 	public void loadData(boolean isLoad) {
-		if (mWebView != null&&isLoad)
-			mWebView.loadUrl(url);
+//		if (mWebView != null&&isLoad)
+//			mWebView.loadUrl(url);
 	}
 
 	private void initWebView() {

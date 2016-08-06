@@ -1,27 +1,43 @@
 package com.ahxdnet.linquanapp;
 
-import java.util.Iterator;
-import java.util.List;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.ahxdnet.linquanapp.fragment.CustomFragment;
 import com.ahxdnet.linquanapp.fragment.HomeFragment;
+import com.ahxdnet.util.DownLoadManager;
+import com.ahxdnet.util.HttpUtils;
+import com.ahxdnet.util.URLConfig;
+import com.ahxdnet.util.UpdateVersion;
 
 public class HomeActivity extends FragmentActivity implements OnClickListener {
 	public String TAG = HomeActivity.class.getSimpleName();
@@ -56,8 +72,8 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 			mRadioGroup.check(R.id.home_bottom_tab_index_2);
 			current_index = R.id.home_bottom_tab_index_2;
 			if (gj == null) {
-				gj = HomeFragment.newInstance("http://www.99tx.com/wap/special.html?special_id=4",
-						2);
+				gj = HomeFragment.newInstance(
+						"http://www.99tx.com/wap/special.html?special_id=4", 2);
 				ft.add(R.id.home_fragment_body_2, gj);
 			} else {
 				ft.show(gj);
@@ -68,8 +84,11 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 			mRadioGroup.check(R.id.home_bottom_tab_index_3);
 			current_index = R.id.home_bottom_tab_index_3;
 			if (kf == null) {
+				// kf = CustomFragment.newInstance(
+				// "http://wpa.qq.com/msgrd?v=3&uin=909972273&site=qq&menu=yes",
+				// 3);
 				kf = CustomFragment.newInstance(
-						"http://wpa.qq.com/msgrd?v=3&uin=909972273&site=qq&menu=yes", 3);
+						"http://www.99tx.com/wap/kf.html", 3);
 				ft.add(R.id.home_fragment_body_3, kf);
 			} else {
 				ft.show(kf);
@@ -80,7 +99,8 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 			mRadioGroup.check(R.id.home_bottom_tab_index_4);
 			current_index = R.id.home_bottom_tab_index_4;
 			if (gwc == null) {
-				gwc = HomeFragment.newInstance("http://www.99tx.com/wap/tmpl/cart_list.html", 4);
+				gwc = HomeFragment.newInstance(
+						"http://www.99tx.com/wap/tmpl/cart_list.html", 4);
 				ft.add(R.id.home_fragment_body_4, gwc);
 			} else {
 				ft.show(gwc);
@@ -91,8 +111,10 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 			mRadioGroup.check(R.id.home_bottom_tab_index_5);
 			current_index = R.id.home_bottom_tab_index_5;
 			if (grzx == null) {
-				grzx = HomeFragment.newInstance(
-						"http://www.99tx.com/wap/tmpl/member/member.html?act=member", 5);
+				grzx = HomeFragment
+						.newInstance(
+								"http://www.99tx.com/wap/tmpl/member/member.html?act=member",
+								5);
 				ft.add(R.id.home_fragment_body_5, grzx);
 			} else {
 				ft.show(grzx);
@@ -123,8 +145,9 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		findViewById(R.id.home_bottom_tab_index_3).setOnClickListener(this);
 		findViewById(R.id.home_bottom_tab_index_4).setOnClickListener(this);
 		findViewById(R.id.home_bottom_tab_index_5).setOnClickListener(this);
-		
+
 		Log.e("jingya", getSign(this));
+		new UpdateVersion(this).checkVersion();
 	}
 
 	private void hideFragment(FragmentTransaction transaction) {
@@ -201,14 +224,16 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	}
 
 	public void onBackPressed() {
-		new AlertDialog.Builder(this).setTitle("确认退出吗？").setIcon(android.R.drawable.ic_dialog_info)
+		new AlertDialog.Builder(this).setTitle("确认退出吗？")
+				.setIcon(android.R.drawable.ic_dialog_info)
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// 点击“确认”后的操作
 						HomeActivity.this.finish();
 					}
-				}).setNegativeButton("返回", new DialogInterface.OnClickListener() {
+				})
+				.setNegativeButton("返回", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// 点击“返回”后的操作,这里不设置没有任何操作
@@ -235,8 +260,8 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		case R.id.home_bottom_tab_index_2:
 			current_index = R.id.home_bottom_tab_index_2;
 			if (gj == null) {
-				gj = HomeFragment.newInstance("http://www.99tx.com/wap/special.html?special_id=4",
-						2);
+				gj = HomeFragment.newInstance(
+						"http://www.99tx.com/wap/special.html?special_id=4", 2);
 				ft.add(R.id.home_fragment_body_2, gj);
 			} else {
 				ft.show(gj);
@@ -246,8 +271,11 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		case R.id.home_bottom_tab_index_3:
 			current_index = R.id.home_bottom_tab_index_3;
 			if (kf == null) {
+				// kf = CustomFragment.newInstance(
+				// "http://wpa.qq.com/msgrd?v=3&uin=909972273&site=qq&menu=yes",
+				// 3);
 				kf = CustomFragment.newInstance(
-						"http://wpa.qq.com/msgrd?v=3&uin=909972273&site=qq&menu=yes", 3);
+						"http://www.99tx.com/wap/kf.html", 3);
 				ft.add(R.id.home_fragment_body_3, kf);
 			} else {
 				ft.show(kf);
@@ -257,7 +285,8 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		case R.id.home_bottom_tab_index_4:
 			current_index = R.id.home_bottom_tab_index_4;
 			if (gwc == null) {
-				gwc = HomeFragment.newInstance("http://www.99tx.com/wap/tmpl/cart_list.html", 4);
+				gwc = HomeFragment.newInstance(
+						"http://www.99tx.com/wap/tmpl/cart_list.html", 4);
 				ft.add(R.id.home_fragment_body_4, gwc);
 			} else {
 				ft.show(gwc);
@@ -267,8 +296,10 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		case R.id.home_bottom_tab_index_5:
 			current_index = R.id.home_bottom_tab_index_5;
 			if (grzx == null) {
-				grzx = HomeFragment.newInstance(
-						"http://www.99tx.com/wap/tmpl/member/member.html?act=member", 5);
+				grzx = HomeFragment
+						.newInstance(
+								"http://www.99tx.com/wap/tmpl/member/member.html?act=member",
+								5);
 				ft.add(R.id.home_fragment_body_5, grzx);
 			} else {
 				ft.show(grzx);
@@ -282,19 +313,19 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	}
 
 	private String getSign(Context context) {
-		  PackageManager pm = context.getPackageManager();
-		  PackageInfo info = null;
+		PackageManager pm = context.getPackageManager();
+		PackageInfo info = null;
 		try {
-			info = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+			info = pm.getPackageInfo(context.getPackageName(),
+					PackageManager.GET_SIGNATURES);
 		} catch (NameNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		  
-		  
-		  
-		 String sigin =  info.signatures[0].toCharsString();
-		 
-		  return sigin;
-		}
+
+		String sigin = info.signatures[0].toCharsString();
+
+		return sigin;
+	}
+
 }
