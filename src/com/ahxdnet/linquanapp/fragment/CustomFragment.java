@@ -14,10 +14,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.ahxdnet.linquanapp.HomeActivity;
 import com.ahxdnet.linquanapp.R;
 import com.ahxdnet.linquanapp.fragment.HomeFragment.XHSWebChromeClient;
 import com.ahxdnet.widget.ProgressWebView;
 import com.ahxdnet.widget.LoadFailView.ReloadListener;
+import com.example.qr_codescan.MipcaActivityCapture;
 
 public class CustomFragment extends Fragment implements ReloadListener {
 	public ProgressWebView mWebView;
@@ -64,23 +66,23 @@ public class CustomFragment extends Fragment implements ReloadListener {
 //		if (mWebView != null&&isLoad)
 //			mWebView.loadUrl(url);
 	}
-
 	private void initWebView() {
 		mWebView.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				Log.e("ContentPagerFragment", "url=" + url);
 //				Toast.makeText(getActivity(), "url="+url, Toast.LENGTH_SHORT).show();
-				if (url.contains("mqqwpa://im/chat?chat_type=wpa&uin")) {
+				if (url.contains("http://")||url.contains("www")) {
+					return false;
+				}else{
 					try {
 						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
 					} catch (Exception e) {
 						// TODO: handle exception
-						Toast.makeText(getActivity(), "无法启动QQ,请确认是否安装QQ并已登录", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(), "无法启动该链接："+url, Toast.LENGTH_LONG).show();
 					}
+					return true;
 				}
-				return false;
-		
 			}
 
 			@Override

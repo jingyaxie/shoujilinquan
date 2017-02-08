@@ -50,7 +50,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	HomeFragment gwc;
 	HomeFragment grzx;
 	private int current_index;
-
+	public final static int SCANNIN_GREQUEST_CODE = 1;
 	@Override
 	protected void onNewIntent(Intent intent) {
 		// TODO Auto-generated method stub
@@ -327,5 +327,58 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 
 		return sigin;
 	}
+	
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+		case SCANNIN_GREQUEST_CODE:
+			if(resultCode == RESULT_OK){
+				Bundle bundle = data.getExtras();
+				final String result = bundle.getString("result");
+				String title = "";
+				if(result.contains("http://")){
+					title = "确认访问该网址";
+					Intent intent = new Intent(HomeActivity.this,CommonFragmentActivity.class);      
+					intent.putExtra("url", result);
+			        startActivity(intent);
+			        return;
+				}else{
+					title = "扫描结果";
+				}
+				
+				final Builder mBuilder = new AlertDialog.Builder(this);
+				final AlertDialog mAlertDialog =mBuilder.create();
+				
+				mBuilder.setTitle(title)
+				.setMessage(result)
+				.setIcon(android.R.drawable.ic_dialog_info)
+				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// 点击“确认”后的操作
+						if(result.contains("://")){
+							Intent intent = new Intent(HomeActivity.this,CommonFragmentActivity.class);      
+							intent.putExtra("url", result);
+					        startActivity(intent);
+						}else{
+							mAlertDialog.dismiss();
+						}
+						
+					}
+				})
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// 点击“返回”后的操作,这里不设置没有任何操作
+					}
+				}).show();
+			
+			}
+			break;
+		}
+    }
+	
+	
 
 }

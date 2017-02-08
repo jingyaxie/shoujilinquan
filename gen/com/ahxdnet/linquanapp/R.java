@@ -21,37 +21,40 @@ public final class R {
     public static final class color {
         /**  A really bright Holo shade of blue 
          */
-        public static final int holo_blue_bright=0x7f05000b;
+        public static final int holo_blue_bright=0x7f06000e;
         /**  A dark Holo shade of blue 
          */
-        public static final int holo_blue_dark=0x7f050005;
+        public static final int holo_blue_dark=0x7f060008;
         /**  A light Holo shade of blue 
          */
-        public static final int holo_blue_light=0x7f050002;
+        public static final int holo_blue_light=0x7f060005;
         /**  A dark Holo shade of green 
          */
-        public static final int holo_green_dark=0x7f050006;
+        public static final int holo_green_dark=0x7f060009;
         /**  A light Holo shade of green 
          */
-        public static final int holo_green_light=0x7f050003;
+        public static final int holo_green_light=0x7f060006;
         /**  A dark Holo shade of orange 
          */
-        public static final int holo_orange_dark=0x7f05000a;
+        public static final int holo_orange_dark=0x7f06000d;
         /**  A light Holo shade of orange 
          */
-        public static final int holo_orange_light=0x7f050009;
+        public static final int holo_orange_light=0x7f06000c;
         /**  A Holo shade of purple 
          */
-        public static final int holo_purple=0x7f050008;
+        public static final int holo_purple=0x7f06000b;
         /**  A dark Holo shade of red 
          */
-        public static final int holo_red_dark=0x7f050007;
+        public static final int holo_red_dark=0x7f06000a;
         /**  A light Holo shade of red 
          */
-        public static final int holo_red_light=0x7f050004;
-        public static final int home_tab_color_selector=0x7f05000c;
-        public static final int tab_text_normal=0x7f050000;
-        public static final int tab_text_selected=0x7f050001;
+        public static final int holo_red_light=0x7f060007;
+        public static final int home_tab_color_selector=0x7f06000f;
+        public static final int possible_result_points=0x7f060002;
+        public static final int result_view=0x7f060000;
+        public static final int tab_text_normal=0x7f060003;
+        public static final int tab_text_selected=0x7f060004;
+        public static final int viewfinder_mask=0x7f060001;
     }
     public static final class drawable {
         public static final int android_guide_step_1=0x7f020000;
@@ -71,74 +74,108 @@ public final class R {
         public static final int kf=0x7f02000e;
         public static final int kf_1=0x7f02000f;
         public static final int lanch_bg=0x7f020010;
-        public static final int msp_demo_title=0x7f020011;
-        public static final int msp_demo_title_bg=0x7f020012;
-        public static final int msp_icon=0x7f020013;
-        public static final int ren=0x7f020014;
-        public static final int ren_1=0x7f020015;
-        public static final int sy=0x7f020016;
-        public static final int sy_1=0x7f020017;
-        public static final int welcome_logo=0x7f020018;
-        public static final int welcome_logo_img=0x7f020019;
+        public static final int mm_title_back_btn=0x7f020011;
+        public static final int mm_title_back_focused=0x7f020012;
+        public static final int mm_title_back_normal=0x7f020013;
+        public static final int mm_title_back_pressed=0x7f020014;
+        public static final int mmtitle_bg_alpha=0x7f020015;
+        public static final int msp_demo_title=0x7f020016;
+        public static final int msp_demo_title_bg=0x7f020017;
+        public static final int msp_icon=0x7f020018;
+        public static final int ren=0x7f020019;
+        public static final int ren_1=0x7f02001a;
+        public static final int sy=0x7f02001b;
+        public static final int sy_1=0x7f02001c;
+        public static final int welcome_logo=0x7f02001d;
+        public static final int welcome_logo_img=0x7f02001e;
     }
     public static final class id {
-        public static final int body=0x7f08000d;
-        public static final int fragment=0x7f080014;
-        public static final int h5pay=0x7f080013;
-        public static final int home_bottom_tab_body=0x7f080001;
-        public static final int home_bottom_tab_index_1=0x7f080002;
-        public static final int home_bottom_tab_index_2=0x7f080003;
-        public static final int home_bottom_tab_index_3=0x7f080004;
-        public static final int home_bottom_tab_index_4=0x7f080005;
-        public static final int home_bottom_tab_index_5=0x7f080006;
-        public static final int home_fragment_body_1=0x7f080007;
-        public static final int home_fragment_body_2=0x7f080008;
-        public static final int home_fragment_body_3=0x7f080009;
-        public static final int home_fragment_body_4=0x7f08000a;
-        public static final int home_fragment_body_5=0x7f08000b;
-        public static final int no_data_layout=0x7f080016;
-        public static final int pay=0x7f080012;
-        public static final int product_price=0x7f080011;
-        public static final int product_subject=0x7f080010;
-        public static final int reload_text=0x7f08000f;
-        public static final int start_pay=0x7f080015;
-        public static final int swipe_container=0x7f080017;
-        public static final int viewpager=0x7f080000;
-        public static final int webview=0x7f08000e;
-        public static final int welcome_logo=0x7f08000c;
+        public static final int about_version_code=0x7f07000e;
+        /**  Messages IDs 
+         */
+        public static final int auto_focus=0x7f070000;
+        public static final int body=0x7f070022;
+        public static final int button_back=0x7f07001f;
+        public static final int decode=0x7f070001;
+        public static final int decode_failed=0x7f070002;
+        public static final int decode_succeeded=0x7f070003;
+        public static final int encode_failed=0x7f070004;
+        public static final int encode_succeeded=0x7f070005;
+        public static final int fragment=0x7f070028;
+        public static final int gridview=0x7f07000c;
+        public static final int h5pay=0x7f070027;
+        public static final int home_bottom_tab_body=0x7f070014;
+        public static final int home_bottom_tab_index_1=0x7f070015;
+        public static final int home_bottom_tab_index_2=0x7f070016;
+        public static final int home_bottom_tab_index_3=0x7f070017;
+        public static final int home_bottom_tab_index_4=0x7f070018;
+        public static final int home_bottom_tab_index_5=0x7f070019;
+        public static final int home_fragment_body_1=0x7f07001a;
+        public static final int home_fragment_body_2=0x7f07001b;
+        public static final int home_fragment_body_3=0x7f07001c;
+        public static final int home_fragment_body_4=0x7f07001d;
+        public static final int home_fragment_body_5=0x7f07001e;
+        public static final int include1=0x7f070012;
+        public static final int launch_product_query=0x7f070006;
+        public static final int no_data_layout=0x7f07002a;
+        public static final int pay=0x7f070026;
+        public static final int preview_view=0x7f070010;
+        public static final int product_price=0x7f070025;
+        public static final int product_subject=0x7f070024;
+        public static final int quit=0x7f070007;
+        public static final int reload_text=0x7f070023;
+        public static final int restart_preview=0x7f070008;
+        public static final int return_scan_result=0x7f070009;
+        public static final int search_book_contents_failed=0x7f07000a;
+        public static final int search_book_contents_succeeded=0x7f07000b;
+        public static final int split=0x7f07000f;
+        public static final int start_pay=0x7f070029;
+        public static final int swipe_container=0x7f07002b;
+        public static final int textview_title=0x7f070020;
+        public static final int viewfinder_view=0x7f070011;
+        public static final int viewpager=0x7f070013;
+        public static final int webview=0x7f07000d;
+        public static final int welcome_logo=0x7f070021;
     }
     public static final class layout {
-        public static final int activity_guide=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_welcome=0x7f030002;
-        public static final int common_activity=0x7f030003;
-        public static final int custom_fragment=0x7f030004;
-        public static final int no_data_layout=0x7f030005;
-        public static final int pay_external=0x7f030006;
-        public static final int pay_main=0x7f030007;
-        public static final int pay_test=0x7f030008;
-        public static final int webviewfragment=0x7f030009;
+        public static final int activity_capture=0x7f030000;
+        public static final int activity_guide=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int activity_title=0x7f030003;
+        public static final int activity_welcome=0x7f030004;
+        public static final int common_activity=0x7f030005;
+        public static final int custom_fragment=0x7f030006;
+        public static final int no_data_layout=0x7f030007;
+        public static final int pay_external=0x7f030008;
+        public static final int pay_main=0x7f030009;
+        public static final int pay_test=0x7f03000a;
+        public static final int webviewfragment=0x7f03000b;
+    }
+    public static final class raw {
+        public static final int beep=0x7f050000;
+        public static final int realm_properties=0x7f050001;
     }
     public static final class string {
-        public static final int app_name=0x7f060000;
-        public static final int call_custom=0x7f060008;
-        public static final int custom_phone=0x7f060007;
-        public static final int custom_text=0x7f060006;
-        public static final int hello_world=0x7f060001;
-        public static final int pay_result_callback_msg=0x7f060005;
-        public static final int strPoint=0x7f060002;
-        public static final int strWelLogo=0x7f060003;
-        public static final int strWelcomeToMain=0x7f060004;
+        public static final int app_name=0x7f080000;
+        public static final int call_custom=0x7f080008;
+        public static final int custom_phone=0x7f080007;
+        public static final int custom_text=0x7f080006;
+        public static final int hello_world=0x7f080001;
+        public static final int pay_result_callback_msg=0x7f080005;
+        public static final int scan_text=0x7f080009;
+        public static final int strPoint=0x7f080002;
+        public static final int strWelLogo=0x7f080003;
+        public static final int strWelcomeToMain=0x7f080004;
     }
     public static final class style {
-        public static final int AnimationActivity=0x7f070001;
+        public static final int AnimationActivity=0x7f090001;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     
          */
-        public static final int AppTheme=0x7f070000;
-        public static final int ThemeActivity=0x7f070003;
-        public static final int transparentTheme=0x7f070002;
+        public static final int AppTheme=0x7f090000;
+        public static final int ThemeActivity=0x7f090003;
+        public static final int transparentTheme=0x7f090002;
     }
 }

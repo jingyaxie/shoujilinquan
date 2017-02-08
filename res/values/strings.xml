@@ -10,5 +10,5 @@
     <string name="custom_text">您好！欢迎致电久久天下电子商务有限公司\n区域加盟请按1\n客服中心请按2\n手机临泉请按3\n投诉建议请按4\n技术支持请按5\n如需其他帮助请按6\n\重听请按*号键\n\n按三后：\n\n商家开店请按1\n客服中心请按2\n配送催促请按3\n如需其他帮助请按4\n重听请按*号键\n返回上一层请按#号键</string>
     <string name="custom_phone">400-100-0059</string>
     <string name="call_custom">立即拨打</string>
-
+  <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
 </resources>

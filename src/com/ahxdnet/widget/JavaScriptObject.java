@@ -5,14 +5,17 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+import com.ahxdnet.linquanapp.HomeActivity;
 import com.ahxdnet.linquanapp.wxapi.Constants;
 import com.alipay.sdk.pay.demo.AliPay;
+import com.example.qr_codescan.MipcaActivityCapture;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -111,4 +114,44 @@ public class JavaScriptObject {
 		AliPay pay = new AliPay((Activity) mContxt);
 		pay.pay(obj);
 	}
+
+	@JavascriptInterface
+	public void saveCookie(String cookie) {
+		Log.e("jingya", "cookie=" + cookie);
+		if (TextUtils.isEmpty(cookie)) return;
+		Log.e("jingya", "cookie=" + cookie);
+		SharedPreferences sharedPreferences = mContxt.getSharedPreferences(
+				"userCookieData", Context.MODE_PRIVATE);
+		sharedPreferences.edit().putString("userCookie", cookie).commit();
+	}
+	
+	@JavascriptInterface
+	public String getCookie() {
+		SharedPreferences sharedPreferences = mContxt.getSharedPreferences(
+				"userCookieData", Context.MODE_PRIVATE);
+		String cookie = sharedPreferences.getString("userCookie", "");
+		Log.e("jingya", "getCookie cookie=" + cookie);
+		return cookie;
+	}
+	
+	@JavascriptInterface
+	public void clearCookie() {
+		SharedPreferences sharedPreferences = mContxt.getSharedPreferences(
+				"userCookieData", Context.MODE_PRIVATE);
+		sharedPreferences.edit().clear().commit();
+	}
+	@JavascriptInterface
+	public void startScan(){
+		try{
+			Intent intent = new Intent();
+			intent.setClass(mContxt, MipcaActivityCapture.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			((Activity) mContxt).startActivityForResult(intent, HomeActivity.SCANNIN_GREQUEST_CODE);
+		}catch(Exception e){
+			
+		}
+		
+	}
+	
+
 }
